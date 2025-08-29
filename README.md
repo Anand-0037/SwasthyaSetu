@@ -4,6 +4,7 @@ swasthya setu is Medical discussion summarizer (between patient and doctor) that
 **Patient Perspective**: Simplified, accessible language for patients and caregivers
 **Clinician Perspective**: Technical, detailed summaries for healthcare professionals
 # [For PPT Please refer to this](https://drive.google.com/file/d/1mY2UF8aKJeMcgcr5V-MCq6zBKnW419LX/view?usp=sharing)
+# [For Video refer to this link](https://drive.google.com/file/d/1XEKvb-fKllULbcUmub_d4r5oih15WinW/view?usp=sharing)
 
 ## AI Model 
 - transformer encoder-decoder architecture ( 10 to 30 million) parameters
