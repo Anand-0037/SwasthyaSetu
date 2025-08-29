@@ -17,7 +17,7 @@ swasthya setu is Medical discussion summarizer (between patient and doctor) that
 
 ## Tech stack
 - fastapi backend - rest api
-- react frontend - dark light toggle, 
+- react frontend - ![visual representation](image.png) 
 - Mysql database
 - Docker deployment so that users can easily fork the repo and modify this.
 - ONNX export ( optimised model inference for production)
