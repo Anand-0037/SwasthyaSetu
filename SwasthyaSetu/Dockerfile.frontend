@@ -1,0 +1,57 @@
+# Multi-stage build for production frontend
+FROM node:18-alpine as builder
+
+# Set working directory
+WORKDIR /app
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Copy package files first (both package.json and lock file)
+COPY frontend/package*.json ./
+COPY frontend/pnpm-lock.yaml ./
+
+# Install dependencies
+RUN pnpm install
+
+# Copy source code
+COPY frontend/ .
+
+# Build the application
+RUN pnpm run build
+
+# Production stage with nginx
+FROM nginx:alpine
+
+# Copy built assets from builder stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy nginx configuration
+COPY nginx/frontend.conf /etc/nginx/conf.d/default.conf
+
+# Create non-root user
+RUN addgroup -g 1001 -S meduser && \
+    adduser -S meduser -u 1001
+
+# Set proper permissions
+RUN chown -R meduser:meduser /usr/share/nginx/html && \
+    chown -R meduser:meduser /var/cache/nginx && \
+    chown -R meduser:meduser /var/log/nginx && \
+    chown -R meduser:meduser /etc/nginx/conf.d
+
+# Make nginx run as non-root user
+RUN touch /var/run/nginx.pid && \
+    chown -R meduser:meduser /var/run/nginx.pid
+
+# Switch to non-root user
+USER meduser
+
+# Expose port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/ || exit 1
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

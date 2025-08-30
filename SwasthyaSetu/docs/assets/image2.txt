@@ -1,0 +1,2 @@
+Image 2: Doctor-Patient-AI relationship diagram showing challenges and solutions in healthcare AI implementation
+

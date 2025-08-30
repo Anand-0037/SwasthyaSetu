@@ -1,0 +1,15 @@
+
+fastapi
+uvicorn
+sqlalchemy
+alembic
+python-jose[cryptography]
+bcrypt
+onnxruntime
+pandas
+numpy
+rouge-score
+bert-score
+textstat
+python-multipart
+torch
